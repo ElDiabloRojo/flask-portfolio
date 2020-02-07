@@ -7,7 +7,7 @@ services:
 env:
 - DOCKER_COMPOSE_VERSION=1.24.1
 language: node_js
-python: '6'
+node_js: '9'
 cache: node_modules/
 stages:
 - build
