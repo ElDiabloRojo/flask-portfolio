@@ -16,7 +16,7 @@ rm-all:
 	make rm-apy; make rm-apy
 
 build-apy:
-	docker build -t 0sum/apy frontend/ -f app/docker/python.Dockerfile
+	docker build -t 0sum/apy frontend/ -f frontend/docker/python.Dockerfile
 
 rm-apy:
 	docker image rm 0sum/apy
