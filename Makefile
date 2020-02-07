@@ -4,7 +4,7 @@
 LOCAL_NAMES='127.0.0.1 apy.local express.local'
 
 configure:
-	grep -qxF ${LOCAL_NAMES} /etc/hosts || echo '${LOCAL_NAMES}' >> /etc/hosts
+	  grep -qxF ${LOCAL_NAMES} /etc/hosts || echo '${LOCAL_NAMES}' >> /etc/hosts
 
 ###
 # Docker Targets
@@ -60,14 +60,20 @@ dep:
 ###
 # Test Targets
 ###
-nm:
-	newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_env_local.json
+local-nm:
+	newman run test/newman/apy.postman_collection.json --env-var url=apy.local -e test/newman/apy.postman_env.json
 
 travis-nm:
-	node_modules/.bin/newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_env_local.json
+	node_modules/.bin/newman run test/newman/apy.postman_collection.json --env-var url=${APP_DOMAIN} -e test/newman/apy.postman_env.json
 
-curl:
+local-curl:
 	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/?m=message"
 
-ab:
+travis-curl:
+	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "${APP_DOMAIN}/?m=message"
+
+local-ab:
 	ab -n 10000 -c 1000 -r "http://apy.local/?m=message"
+
+travis-ab:
+	ab -n 10000 -c 1000 -r "${APP_DOMAIN}/?m=message"
