@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+  nginx:
+    restart: always
+    container_name: "nginx_amplify"
+    image: 0sum/nginx-amplify
+    build:
+      context: nginx/
+      dockerfile: docker/nginx.Dockerfile
+    environment:
+      API_KEY: "1ec221f0b8ef2ae20728a6d2e46319a6"
+      AMPLIFY_IMAGENAME: apy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - 'mongodb-express'
+  apy:
+    restart: always
+    container_name: "apy"
+    image: 0sum/apy
+    build:
+      context: app/
+      dockerfile: docker/python.Dockerfile
+    environment:
+      MONGODB_URI: "mongodb://user:secretPassword@mongo:27017/apy"
+    depends_on:
+      - 'mongo'
+  mongo:
+    restart: always
+    container_name: "mongo"
+    image: "mongo:4.2.1-bionic"
+    environment :
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: apy
+    volumes:
+      - ./mongo/db-init/:/docker-entrypoint-initdb.d
+  mongodb-express:
+    restart: always
+    container_name: "mongodb-express"
+    image: "mongo-express:0.49.0"
+    environment :
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_OPTIONS_EDITORTHEME: 'darcula'
+    depends_on:
+      - 'mongo'
+    links:
+      - mongo
