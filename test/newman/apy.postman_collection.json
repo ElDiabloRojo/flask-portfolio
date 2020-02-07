@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "a9662826-222b-4ee1-9f9d-7fda3d86b57d",
-		"name": "apy copy copy",
+		"name": "apy",
 		"description": "api tests for apy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,7 @@
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"MessageTest\");",
+							"    pm.expect(pm.response.text()).to.include(\"Page Not Found\");",
 							"});"
 						]
 					}
@@ -30,18 +30,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/?m={{message}}",
+					"raw": "{{url}}/xyz",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						""
-					],
-					"query": [
-						{
-							"key": "m",
-							"value": "{{message}}"
-						}
 					]
 				},
 				"description": "send message query to root path"
