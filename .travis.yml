@@ -10,11 +10,17 @@ language: node_js
 node_js: '13.1.0'
 cache: node_modules/
 stages:
+- test
 - build
 - deploy
 - post-test
 jobs:
   include:
+  - stage: test
+    name: npm
+    script:
+    - npm install
+    -
   - stage: build
     name: image-app
     script:
@@ -41,20 +47,14 @@ jobs:
     before_install:
     - "./ci/test_bi.sh"
     install: npm install newman
-    before_script: make compose
     script: make travis-nm
-    after_script: make decompose
   - name: curl
     before_install:
     - "./ci/test_bi.sh"
     install: sudo apt install -y curl
-    before_script: make compose
     script: make travis-curl
-    after_script: make decompose
-  - name: apache benchmark
-    before_install:
-    - "./ci/test_bi.sh"
-    install: sudo apt install -y apache2-utils
-    before_script: make compose
-    script: make travis-ab
-    after_script: make decompose
+#  - name: apache benchmark
+#    before_install:
+#    - "./ci/test_bi.sh"
+#    install: sudo apt install -y apache2-utils
+#    script: make travis-ab

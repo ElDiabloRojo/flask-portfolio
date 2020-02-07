@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "b59548cc-e54e-4da9-a710-f3b618e9126c",
-		"name": "apy copy",
+		"_postman_id": "a9662826-222b-4ee1-9f9d-7fda3d86b57d",
+		"name": "apy copy copy",
 		"description": "api tests for apy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "root query test ",
+			"name": "404",
 			"event": [
 				{
 					"listen": "test",
@@ -49,33 +49,23 @@
 			"response": []
 		},
 		{
-			"name": "post data",
+			"name": "home",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "5e4430df-4189-469d-8e22-0c08e898d28d",
+						"id": "7a2f459b-dce6-4428-b7ed-289b3b2a6db9",
 						"type": "text/javascript",
 						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"Verify posting value.\", function () {",
-							"    pm.expect(jsonData.result.value).to.eql(\"123\");",
-							"});",
-							"",
-							"pm.test(\"Verify posting value.\", function () {",
-							"    pm.expect(jsonData.result.value).to.eql(\"123\");",
-							"});",
-							"",
-							"pm.test(\"Verify posting label.\", function () {",
-							"    pm.expect(jsonData.result.label).to.eql(\"label\");",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Freelancer - Start Bootstrap Theme\");",
 							"});"
 						]
 					}
 				}
 			],
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -87,63 +77,15 @@
 					"raw": "{\"label\":\"label\",\"duration\":\"123\",\"value\":\"123\"}"
 				},
 				"url": {
-					"raw": "{{url}}/star",
+					"raw": "{{url}}/bootstrap",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"star"
+						"bootstrap"
 					]
 				},
 				"description": "posting to endpoints that store requests in mongoDb"
-			},
-			"response": []
-		},
-		{
-			"name": "json validation",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "82fe43b5-71c2-418f-b3bf-1e218be8c761",
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"var schema = {",
-							"    \"result\": [{",
-							"         \"value\": {",
-							"            \"type\":\"integer\"",
-							"             },",
-							"         \"label\": {",
-							"             \"type\":\"string\"",
-							"             }",
-							"    }]",
-							"};",
-							"",
-							"pm.test('Validate json schema.', function() {",
-							"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{url}}/star",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"star"
-					]
-				}
 			},
 			"response": []
 		}

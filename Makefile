@@ -67,13 +67,13 @@ travis-nm:
 	node_modules/.bin/newman run test/newman/apy.postman_collection.json --env-var url=${APP_DOMAIN} -e test/newman/apy.postman_env.json
 
 local-curl:
-	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/?m=message"
+	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/bootstrap"
 
 travis-curl:
-	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "${APP_DOMAIN}/?m=message"
+	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "${APP_DOMAIN}/bootstrap"
 
 local-ab:
-	ab -n 10000 -c 1000 -r "http://apy.local/?m=message"
+	ab -n 10000 -c 1000 -r "http://apy.local/bootstrap"
 
 travis-ab:
-	ab -n 10000 -c 1000 -r "${APP_DOMAIN}/?m=message"
+	ab -n 10000 -c 1000 -r "${APP_DOMAIN}/bootstrap"
