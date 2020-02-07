@@ -4,8 +4,6 @@ notifications:
       secure: TQNq34BiMI+DkjRfRjDczrmXqG7uAnLs4eVWNJPbJb8gEkNKFVbU7qt+rHl90InqN8O4VoQpm/T4iUtrnqt7KepTtVfcasFnwDvOILjl+6z1a3+k5oX15O9Ss8JmYBH4peJ1bIZOS+J7SxG4xRtB8+tFPkBiykA5wMaxeSvbTaZkzmZfs+aWa9VhGX4hJdxDnse9OSxOqVhM7MgagnJ4IDAkqPvqz9fcAv+W6jqtw13EvOENkSBDm240p2p+AkaKK3lhBeMd6+614dJDl99h9SFeWjGGac8gclx/SpKSq6zM9FquUPeN6ECSUWJhdqK6Og/yh6N0VlmQRyB4vBCmBBdW6tvkOqBbrlMqBPG+dZtihE1Zfz876nUZBK6kiVX2sQgobx6nB0R5Qz+PvbdJjSaSqKh2KC4fPBapdfHISwUUOdND8jpauWb+OKuf/QMAls9dYTuWnEtdofis6sIrFOsUzQ5WKsUCWGRbqQFSH0AXZqfgFo8IAqEwhIKqiCVaslPCwdgO9yHVwxwTHegKY7nckqnQ25+3HQ5kjNkqfdiIWqEjuaDWSFtnjK/yauI1RX8erUYzVyeFmk83sHunar21gwB0D5jdLa1VGYQjsyIVBInpDeKb4Qsd5x3fdXad1f5zgS482xi6Y2joDP2fQLhaRrg4ln29xn7cW33LGZw=
 services:
 - docker
-env:
-- DOCKER_COMPOSE_VERSION=1.24.1
 language: node_js
 node_js: '13.1.0'
 cache: node_modules/
@@ -20,7 +18,6 @@ jobs:
     name: npm
     script:
     - npm install
-    -
   - stage: build
     name: image-app
     script:
