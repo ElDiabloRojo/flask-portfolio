@@ -8,9 +8,13 @@
   .masthead-subheading {
     font-size: 1.25rem;
   }
-  .masthead-avatar {
+  .masthead-img {
     width: 15rem;
   }
+  background-repeat: no-repeat;
+  background-image: url("../img/magnify-py.jpg");
+  background-position: center;
+  background-size: cover;
 }
 
 @include media-breakpoint-up(lg) {
