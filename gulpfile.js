@@ -30,6 +30,7 @@ function browserSync(done) {
   browsersync.init({
     server: {
       baseDir: [ "frontend/app", "frontend/static" ],
+      index: "templates/index.html",
       serveStaticOptions: {
         extensions: ["html"]
       }
@@ -53,16 +54,16 @@ function clean() {
 function modules() {
   // Bootstrap JS
   var bootstrapJS = gulp.src('./node_modules/bootstrap/dist/js/*')
-    .pipe(gulp.dest('./frontend/src/vendor/bootstrap/js'));
+    .pipe(gulp.dest('./frontend/app/static/vendor/bootstrap/js'));
   // Font Awesome CSS
   var fontAwesomeCSS = gulp.src('./node_modules/@fortawesome/fontawesome-free/css/**/*')
-    .pipe(gulp.dest('./frontend/src/vendor/fontawesome-free/css'));
+    .pipe(gulp.dest('./frontend/app/static/vendor/fontawesome-free/css'));
   // Font Awesome Webfonts
   var fontAwesomeWebfonts = gulp.src('./node_modules/@fortawesome/fontawesome-free/webfonts/**/*')
-    .pipe(gulp.dest('./frontend/src/vendor/fontawesome-free/webfonts'));
+    .pipe(gulp.dest('./frontend/app/static/vendor/fontawesome-free/webfonts'));
   // jQuery Easing
   var jqueryEasing = gulp.src('./node_modules/jquery.easing/*.js')
-    .pipe(gulp.dest('./frontend/src/vendor/jquery-easing'));
+    .pipe(gulp.dest('./frontend/app/static/vendor/jquery-easing'));
   // jQuery
   var jquery = gulp.src([
       './node_modules/jquery/dist/*',
