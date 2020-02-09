@@ -1,6 +1,5 @@
 import os
 from flask import Flask, render_template, flash, redirect, url_for
-from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
@@ -13,4 +12,3 @@ app.config.from_object('app.config')
 
 # Import the routes from all controllers
 from app.controllers import *
-from app.forms import *

@@ -29,9 +29,11 @@ const banner = ['/*!\n',
 function browserSync(done) {
   browsersync.init({
     server: {
-      baseDir: "./frontend/app/templates"
-    },
-    port: 3000
+      baseDir: [ "frontend/app", "frontend/static" ],
+      serveStaticOptions: {
+        extensions: ["html"]
+      }
+    }
   });
   done();
 }
