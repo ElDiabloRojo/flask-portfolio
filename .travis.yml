@@ -1,80 +1,57 @@
 notifications:
   slack:
     rooms:
-      secure: nSUPxSqmTkHwieKUM3NdVq3/2A1QpKZj58c3hQIWYtYo0TSgNB9YFKp90ZyLKf2njaU4iC/TDojtiHt91UKdsPDwXNCvE1Lokl753MzzbnEDpAOYTy4y9PZYnzAHsKu17Y1ZS0q6p9LCL3ob+rmaVs59cWp11Dv+Ex/mjKxfMikKUejLH8hiZ6suwahoBm7BgeVTIJX+RoEsvtsu6LXw+WTGxdziulo0jUYcwVubyYiSkjMVCLW/ugzibdQVUoK3N3IK1DCu4uwaQKR3kHcdRV96ZLIJdIsbUncdVtjS1fDVNbI1XzhiAqiiUUHGojtdJc+iF1VEVfEf7XXOW8muVB9G9NOINS8Zw3vgfcYHGh9ionUnL0ZTxPK8LGdvJe5m8u8fPpvQ90tYzgt8CrP5AIEtjUFEc0hE8OG/YjNB8RpgjpoSrL0ms66ylMYC7u9DlJ3wAxawaqCycNs9+NmcCh8OYfsNfWMqnZvks5FtlSry/cdWxCLN5YRscHH7nKHNHsARolCTRkwKm6EJ2oN+unhGo5n7BKpe+DxzDNF3IO2+jJSrmLnj5zvTHUlCGf/sDo1sC/TByW/aT/XDLU0UskhWIj1X/Q8FqX+BGbuxlZ2ZCKXntYWrYzBa+d8cXUrSON19ahHQtxGmBY2oNrziMzoKy1xC5g8S9CivMUPI5bc=
-
+      secure: TQNq34BiMI+DkjRfRjDczrmXqG7uAnLs4eVWNJPbJb8gEkNKFVbU7qt+rHl90InqN8O4VoQpm/T4iUtrnqt7KepTtVfcasFnwDvOILjl+6z1a3+k5oX15O9Ss8JmYBH4peJ1bIZOS+J7SxG4xRtB8+tFPkBiykA5wMaxeSvbTaZkzmZfs+aWa9VhGX4hJdxDnse9OSxOqVhM7MgagnJ4IDAkqPvqz9fcAv+W6jqtw13EvOENkSBDm240p2p+AkaKK3lhBeMd6+614dJDl99h9SFeWjGGac8gclx/SpKSq6zM9FquUPeN6ECSUWJhdqK6Og/yh6N0VlmQRyB4vBCmBBdW6tvkOqBbrlMqBPG+dZtihE1Zfz876nUZBK6kiVX2sQgobx6nB0R5Qz+PvbdJjSaSqKh2KC4fPBapdfHISwUUOdND8jpauWb+OKuf/QMAls9dYTuWnEtdofis6sIrFOsUzQ5WKsUCWGRbqQFSH0AXZqfgFo8IAqEwhIKqiCVaslPCwdgO9yHVwxwTHegKY7nckqnQ25+3HQ5kjNkqfdiIWqEjuaDWSFtnjK/yauI1RX8erUYzVyeFmk83sHunar21gwB0D5jdLa1VGYQjsyIVBInpDeKb4Qsd5x3fdXad1f5zgS482xi6Y2joDP2fQLhaRrg4ln29xn7cW33LGZw=
 services:
-  - docker
-
-env:
-  - DOCKER_COMPOSE_VERSION=1.24.1
-
-language: python
-python: "3.7"
-
+- docker
+language: node_js
+node_js: '13.1.0'
+cache: node_modules/
 stages:
-  - build
-  - test
-  - deploy
-
+- test
+- build
+- deploy
+- post-test
 jobs:
   include:
-    - stage: build
-      name: apy
-      script: make build-apy
-    - name: nginx-amplify
-      script: make build-nginx
-    - stage: test
-      name: newman
-      language: node_js
-      node_js: 13.2.0
-      before_install:
-        - sudo make configure
-        - sudo apt-get update
-        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        - sudo rm /usr/local/bin/docker-compose
-        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-        - chmod +x docker-compose
-        - sudo mv docker-compose /usr/local/bin
-        - docker images
-      install: npm install newman
-      before_script: make compose
-      script: make travis-nm
-      after_script: make decompose
-    - name: curl
-      before_install:
-        - sudo make configure
-        - sudo apt-get update
-        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        - sudo rm /usr/local/bin/docker-compose
-        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-        - chmod +x docker-compose
-        - sudo mv docker-compose /usr/local/bin
-      install: sudo apt install -y curl
-      before_script: make compose
-      script: make curl
-      after_script: make decompose
-    - name: apache benchmark
-      before_install:
-        - sudo make configure
-        - sudo apt-get update
-        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        - sudo rm /usr/local/bin/docker-compose
-        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-        - chmod +x docker-compose
-        - sudo mv docker-compose /usr/local/bin
-      install: sudo apt install -y apache2-utils
-      before_script: make compose
-      script: make ab
-      after_script: make decompose
-    - stage: deploy
-      script: skip
-      before_deploy:
-        - cd app/
-      deploy:
-        provider: heroku
-        api_key: ${HEROKU_API_KEY}
-        app: holden-apy
-        cleanup: false
-        on:
-          all_branches: true
+  - stage: test
+    name: npm
+    script:
+    - npm install
+  - stage: build
+    name: image-app
+    script:
+    - npm install
+    - gulp
+    - make build-apy
+  - name: image-nginx
+    script: make build-nginx
+  - stage: deploy
+    script: skip
+    before_deploy:
+    - cd frontend/
+    deploy:
+      provider: heroku
+      api_key: "${HEROKU_API_KEY}"
+      app: holden-apy
+      cleanup: false
+      on:
+        all_branches: true
+  - stage: post-test
+    name: newman
+    language: node_js
+    node_js: 13.2.0
+    before_install:
+    - "./ci/test_bi.sh"
+    install: npm install newman
+    script: make travis-nm
+  - name: curl
+    before_install:
+    - "./ci/test_bi.sh"
+    install: sudo apt install -y curl
+    script: make travis-curl
+#  - name: apache benchmark
+#    before_install:
+#    - "./ci/test_bi.sh"
+#    install: sudo apt install -y apache2-utils
+#    script: make travis-ab

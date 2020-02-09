@@ -4,7 +4,7 @@
 LOCAL_NAMES='127.0.0.1 apy.local express.local'
 
 configure:
-	grep -qxF ${LOCAL_NAMES} /etc/hosts || echo '${LOCAL_NAMES}' >> /etc/hosts
+	  grep -qxF ${LOCAL_NAMES} /etc/hosts || echo '${LOCAL_NAMES}' >> /etc/hosts
 
 ###
 # Docker Targets
@@ -16,7 +16,7 @@ rm-all:
 	make rm-apy; make rm-apy
 
 build-apy:
-	docker build -t 0sum/apy app/ -f app/docker/python.Dockerfile
+	docker build -t 0sum/apy frontend/ -f frontend/docker/python.Dockerfile
 
 rm-apy:
 	docker image rm 0sum/apy
@@ -60,14 +60,20 @@ dep:
 ###
 # Test Targets
 ###
-nm:
-	newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_env_local.json
+local-nm:
+	newman run test/newman/apy.postman_collection.json --env-var url=apy.local -e test/newman/apy.postman_env.json
 
 travis-nm:
-	node_modules/.bin/newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_env_local.json
+	node_modules/.bin/newman run test/newman/apy.postman_collection.json --env-var url=${APP_DOMAIN} -e test/newman/apy.postman_env.json
 
-curl:
-	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/?m=message"
+local-curl:
+	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/bootstrap"
 
-ab:
-	ab -n 10000 -c 1000 -r "http://apy.local/?m=message"
+travis-curl:
+	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "${APP_DOMAIN}/bootstrap"
+
+local-ab:
+	ab -n 10000 -c 1000 -r "http://apy.local/bootstrap"
+
+travis-ab:
+	ab -n 10000 -c 1000 -r "${APP_DOMAIN}/bootstrap"

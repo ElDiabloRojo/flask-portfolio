@@ -1,1 +1,1 @@
-app/requirements.txt
+frontend/requirements.txt
