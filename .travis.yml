@@ -16,6 +16,8 @@ jobs:
   include:
   - stage: test
     name: npm
+    before_script:
+    - cd /frontend/src
     script:
     - npm install
   - stage: build
