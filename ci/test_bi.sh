@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 sudo make configure
 sudo apt-get update
 echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
