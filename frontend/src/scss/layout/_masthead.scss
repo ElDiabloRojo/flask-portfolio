@@ -4,12 +4,14 @@
   .masthead-heading {
     font-size: 2.75rem;
     line-height: 2.75rem;
+    filter: drop-shadow(5px 5px 5px #222);
   }
   .masthead-subheading {
     font-size: 1.25rem;
   }
   .masthead-img {
     width: 15rem;
+    filter: drop-shadow(5px 5px 5px #222);
   }
   background-repeat: no-repeat;
   background-image: url("../img/magnify-py.jpg");
