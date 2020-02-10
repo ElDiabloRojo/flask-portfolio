@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "a9662826-222b-4ee1-9f9d-7fda3d86b57d",
-		"name": "apy",
-		"description": "api tests for apy",
+		"name": "portfolio",
+		"description": "portfolio-tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "44b5cc89-ba78-4759-889d-b6f78583f461",
+						"id": "5a3c8d11-c623-40ca-90e2-74460208bf28",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Body matches string\", function () {",
@@ -35,7 +35,7 @@
 						"{{url}}"
 					],
 					"path": [
-						""
+						"xyz"
 					]
 				},
 				"description": "send message query to root path"
@@ -48,11 +48,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7a2f459b-dce6-4428-b7ed-289b3b2a6db9",
+						"id": "a95dfcd7-ea06-4b0a-b6c7-9cd1c1455e60",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Freelancer - Start Bootstrap Theme\");",
+							"    pm.expect(pm.response.text()).to.include(\"Sam Holden\");",
 							"});"
 						]
 					}
@@ -60,25 +60,21 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"label\":\"label\",\"duration\":\"123\",\"value\":\"123\"}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/",
+					"raw": "{{url}}/home",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						""
+						"home"
 					]
-				}
+				},
+				"description": "posting to endpoints that store requests in mongoDb"
 			},
 			"response": []
 		}

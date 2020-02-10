@@ -61,10 +61,10 @@ dep:
 # Test Targets
 ###
 local-nm:
-	newman run test/newman/apy.postman_collection.json --env-var url=apy.local -e test/newman/apy.postman_env.json
+	newman run test/newman/portfolio.postman_collection.json --env-var url=apy.local -e test/newman/apy.postman_env.json
 
 travis-nm:
-	node_modules/.bin/newman run test/newman/apy.postman_collection.json --env-var url=${APP_DOMAIN} -e test/newman/apy.postman_env.json
+	node_modules/.bin/newman run test/newman/portfolio.postman_collection.json --env-var url=${APP_DOMAIN} -e test/newman/apy.postman_env.json
 
 local-curl:
 	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/bootstrap"

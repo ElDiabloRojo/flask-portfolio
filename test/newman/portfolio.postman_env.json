@@ -1,10 +1,10 @@
 {
   "id": "655409f8-8422-4d01-9178-95aa0607fbca",
-  "name": "apy",
+  "name": "portfolio",
   "values": [
     {
-      "key": "message",
-      "value": "MessageTest",
+      "key": "url",
+      "value": "apy.local",
       "enabled": true,
       "type": "text"
     }
