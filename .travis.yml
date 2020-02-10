@@ -29,7 +29,7 @@ jobs:
   - stage: deploy
     deploy:
       provider: heroku
-      script: "./ci/deploy_deps.sh"
+      run: "./ci/deploy_deps.sh"
       api_key: "${HEROKU_API_KEY}"
       app: holden-apy
       cleanup: false
