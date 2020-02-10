@@ -5,7 +5,7 @@ notifications:
 services:
 - docker
 language: node_js
-node_js: '13.1.0'
+node_js: '12.14.0'
 cache: node_modules/
 stages:
 - test
