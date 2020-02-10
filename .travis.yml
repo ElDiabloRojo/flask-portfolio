@@ -31,7 +31,9 @@ jobs:
       provider: heroku
       api_key: "${HEROKU_API_KEY}"
       app: holden-apy
-      before_deploy: gulp
+      run:
+       - "gulp"
+       - restart
       skip_cleanup: true
       on:
         all_branches: true
