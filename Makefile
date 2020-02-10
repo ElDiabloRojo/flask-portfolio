@@ -16,7 +16,7 @@ rm-all:
 	make rm-apy; make rm-apy
 
 build-apy:
-	docker build --no-cache -t 0sum/apy python.Dockerfile
+	docker build --no-cache -t 0sum/apy . -f python.Dockerfile
 
 rm-apy:
 	docker image rm 0sum/apy
