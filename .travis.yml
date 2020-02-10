@@ -21,8 +21,6 @@ jobs:
   - stage: build
     name: image-app
     script:
-    - npm install
-    - gulp
     - make build-apy
   - name: image-nginx
     script: make build-nginx
