@@ -21,8 +21,8 @@ services:
     container_name: "apy"
     image: 0sum/apy
     build:
-      context: frontend/
-      dockerfile: docker/python.Dockerfile
+      context: ./
+      dockerfile: python.Dockerfile
     environment:
       MONGODB_URI: "mongodb://user:secretPassword@mongo:27017/apy"
     depends_on:
@@ -31,7 +31,7 @@ services:
     restart: always
     container_name: "mongo"
     image: "mongo:4.2.1-bionic"
-    environment :
+    environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: apy

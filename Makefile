@@ -16,7 +16,7 @@ rm-all:
 	make rm-apy; make rm-apy
 
 build-apy:
-	docker build -t 0sum/apy frontend/ -f frontend/docker/python.Dockerfile
+	docker build --no-cache -t 0sum/apy python.Dockerfile
 
 rm-apy:
 	docker image rm 0sum/apy
@@ -52,10 +52,10 @@ restart:
 # App Targets
 ###
 gncn:
-	 cd app/ && gunicorn -w 4 --bind 0.0.0.0:5000 run:app
+	 cd frontend/ && gunicorn -w 4 --bind 0.0.0.0:5000 run:app
 
 dep:
-	cd app/ && pipreqs --print && pip3 install -r requirements.txt
+	cd frontend/ && pipreqs --print && pip3 install -r requirements.txt
 
 ###
 # Test Targets
