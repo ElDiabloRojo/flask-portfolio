@@ -71,15 +71,14 @@
 					"raw": "{\"label\":\"label\",\"duration\":\"123\",\"value\":\"123\"}"
 				},
 				"url": {
-					"raw": "{{url}}/bootstrap",
+					"raw": "{{url}}/",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"bootstrap"
+						""
 					]
-				},
-				"description": "posting to endpoints that store requests in mongoDb"
+				}
 			},
 			"response": []
 		}

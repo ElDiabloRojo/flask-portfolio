@@ -29,7 +29,7 @@ const banner = ['/*!\n',
 function browserSync(done) {
   browsersync.init({
     server: {
-      baseDir: [ "frontend/app", "frontend/static" ],
+      baseDir: [ "../app", "../static" ],
       index: "templates/index.html",
       serveStaticOptions: {
         extensions: ["html"]
@@ -47,36 +47,36 @@ function browserSyncReload(done) {
 
 // Clean vendor
 function clean() {
-  return del(["./frontend/src/vendor/", "./frontend/app/static/vendor/"]);
+  return del(["./vendor/"]);
 }
 
 // Bring third party dependencies from node_modules into vendor directory
 function modules() {
   // Bootstrap JS
   var bootstrapJS = gulp.src('./node_modules/bootstrap/dist/js/*')
-    .pipe(gulp.dest('./frontend/app/static/vendor/bootstrap/js'));
+    .pipe(gulp.dest('../app/static/vendor/bootstrap/js'));
   // Font Awesome CSS
   var fontAwesomeCSS = gulp.src('./node_modules/@fortawesome/fontawesome-free/css/**/*')
-    .pipe(gulp.dest('./frontend/app/static/vendor/fontawesome-free/css'));
+    .pipe(gulp.dest('../app/static/vendor/fontawesome-free/css'));
   // Font Awesome Webfonts
   var fontAwesomeWebfonts = gulp.src('./node_modules/@fortawesome/fontawesome-free/webfonts/**/*')
-    .pipe(gulp.dest('./frontend/app/static/vendor/fontawesome-free/webfonts'));
+    .pipe(gulp.dest('../app/static/vendor/fontawesome-free/webfonts'));
   // jQuery Easing
   var jqueryEasing = gulp.src('./node_modules/jquery.easing/*.js')
-    .pipe(gulp.dest('./frontend/app/static/vendor/jquery-easing'));
+    .pipe(gulp.dest('../app/static/vendor/jquery-easing'));
   // jQuery
   var jquery = gulp.src([
       './node_modules/jquery/dist/*',
       '!./node_modules/jquery/dist/core.js'
     ])
-    .pipe(gulp.dest('./frontend/app/static/vendor/jquery'));
+    .pipe(gulp.dest('../app/static/vendor/jquery'));
   return merge(bootstrapJS, fontAwesomeCSS, fontAwesomeWebfonts, jquery, jqueryEasing);
 }
 
 // CSS task
 function css() {
   return gulp
-    .src("./frontend/src/scss/**/*.scss")
+    .src("./scss/**/*.scss")
     .pipe(plumber())
     .pipe(sass({
       outputStyle: "expanded",
@@ -89,12 +89,12 @@ function css() {
     .pipe(header(banner, {
       pkg: pkg
     }))
-    .pipe(gulp.dest("./frontend/app/static/css"))
+    .pipe(gulp.dest("../app/static/css"))
     .pipe(rename({
       suffix: ".min"
     }))
     .pipe(cleanCSS())
-    .pipe(gulp.dest("./frontend/app/static/css"))
+    .pipe(gulp.dest("../app/static/css"))
     .pipe(browsersync.stream());
 }
 
@@ -102,8 +102,8 @@ function css() {
 function js() {
   return gulp
     .src([
-      './frontend/src/js/*.js',
-      '!./frontend/src/js/*.min.js'
+      './js/*.js',
+      '!./js/*.min.js'
     ])
     .pipe(uglify())
     .pipe(header(banner, {
@@ -112,15 +112,15 @@ function js() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('./frontend/app/static/js'))
+    .pipe(gulp.dest('../app/static/js'))
     .pipe(browsersync.stream());
 }
 
 // Watch files
 function watchFiles() {
-  gulp.watch("./frontend/src/scss/**/*", css);
-  gulp.watch(["./frontend/src/js/**/*", "!./js/**/*.min.js"], js);
-  gulp.watch("./frontend/app/templates/*.html", browserSyncReload);
+  gulp.watch("./src/scss/**/*", css);
+  gulp.watch(["./src/js/**/*", "!./js/**/*.min.js"], js);
+  gulp.watch("../app/templates/*.html", browserSyncReload);
 }
 
 // Define complex tasks
