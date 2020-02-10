@@ -27,9 +27,6 @@ jobs:
   - name: image-nginx
     script: make build-nginx
   - stage: deploy
-    script: skip
-    before_deploy:
-    - cd frontend/
     deploy:
       provider: heroku
       api_key: "${HEROKU_API_KEY}"
