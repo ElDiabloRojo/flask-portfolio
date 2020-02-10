@@ -31,6 +31,7 @@ jobs:
       provider: heroku
       api_key: "${HEROKU_API_KEY}"
       app: holden-apy
+      script: "./ci/deploy-deps.sh"
       skip_cleanup: true
       on:
         all_branches: true
