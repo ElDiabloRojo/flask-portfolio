@@ -118,8 +118,8 @@ function js() {
 
 // Watch files
 function watchFiles() {
-  gulp.watch("./src/scss/**/*", css);
-  gulp.watch(["./src/js/**/*", "!./js/**/*.min.js"], js);
+  gulp.watch("./scss/**/*", css);
+  gulp.watch(["./js/**/*", "!./js/**/*.min.js"], js);
   gulp.watch("../app/templates/*.html", browserSyncReload);
 }
 
