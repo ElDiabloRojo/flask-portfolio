@@ -1,13 +1,13 @@
 // Variables
 
 // Set custom colors
-$teal: #1D2731 !default;
-$powder: #03DAC6 !default;
+$custom1: #1D2731 !default;
+$custom2: #03DAC6 !default;
 
 
 // Override Bootstrap primary and secondary colors
-$primary: $teal !default;
-$secondary: $powder !default;
+$primary: $custom1 !default;
+$secondary: $custom2 !default;
 
 // Override Bootstrap font variables
 $font-family-sans-serif: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", 'Noto Color Emoji' !default;
