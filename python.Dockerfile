@@ -11,7 +11,6 @@ WORKDIR /app
 RUN apk add --no-cache --update python3 make g++ && \
 	python3 -m ensurepip && \
 	npm clean-install && \
-	gulp && \
 	pip3 install -r requirements.txt
 
 WORKDIR /app/frontend
