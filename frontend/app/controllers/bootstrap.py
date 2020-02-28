@@ -2,7 +2,6 @@ from app import app
 from flask import render_template, flash, redirect, url_for
 from flask_pymongo import PyMongo
 
-
 mongo = PyMongo(app)
 
 @app.route('/', methods=['GET'])
